@@ -28,6 +28,7 @@ public class Parser {
     private static final String COMMAND_SEARCH = "find";
     private static final String COMMAND_UNDO = "undo";
     private static final String COMMAND_REDO = "redo";
+    private static final String COMMAND_REMINDER = "reminder";
 
     /**
      * Parse user input.
@@ -63,6 +64,8 @@ public class Parser {
                 return parseUndo(line);
             case COMMAND_REDO:
                 return parseRedo(line);
+            case COMMAND_REMINDER:
+                return parseReminder(line);
         }
 
         throw new DukeException(Message.MESSAGE_UNKNOWN_COMMAND);
@@ -209,5 +212,9 @@ public class Parser {
 
     private static Command parseRedo(String line) throws DukeException {
         return new RedoCommand();
+    }
+
+    private static Command parseReminder(String line) throws DukeException {
+        return new ReminderCommand();
     }
 }
