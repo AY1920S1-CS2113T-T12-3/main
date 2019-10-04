@@ -1,9 +1,10 @@
 package duke.entities;
 
-import duke.commons.DukeException;
-import duke.entities.Order;
 import duke.parser.TimeParser;
-import org.testng.annotations.Test;
+
+import duke.parser.exceptions.ParseException;
+import org.junit.jupiter.api.Test;
+
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -22,7 +23,7 @@ public class OrderTest {
             assertEquals("no nuts", order.getRemarks());
             assertEquals("jj", order.getCustomerName());
             assertEquals(1, order.getItems().size());
-        } catch (DukeException e) {
+        } catch (ParseException e) {
             fail();
         }
     }
@@ -35,7 +36,7 @@ public class OrderTest {
                     TimeParser.convertStringToDate("123"));
 
             fail();
-        } catch (DukeException e) {
+        } catch (ParseException e) {
             assertEquals("Please enter date in correct format: dd/mm/yyyy hhmm. e.g. 18/12/1999 18:00.", e.getMessage());
         }
     }
