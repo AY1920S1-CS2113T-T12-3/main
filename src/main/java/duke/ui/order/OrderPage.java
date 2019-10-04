@@ -1,9 +1,13 @@
-package duke.ui;
+package duke.ui.order;
 
 import duke.entities.Order;
+import duke.ui.MainWindow;
+import duke.ui.UiPart;
+import duke.ui.order.OrderCard;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;

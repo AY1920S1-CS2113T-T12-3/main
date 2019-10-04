@@ -1,23 +1,47 @@
 package duke.ui;
 
 import com.jfoenix.controls.JFXButton;
+import duke.commons.LogsCenter;
 import duke.entities.Order;
 import duke.entities.Sale;
 import duke.entities.recipe.Recipe;
 import duke.logic.Duke;
+import duke.logic.Logic;
+import duke.ui.inventory.InventoryPage;
+import duke.ui.order.OrderPage;
+import duke.ui.recipe.RecipePage;
+import duke.ui.sale.SalePage;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 import java.util.List;
+import java.util.logging.Logger;
 
-public class MainWindow extends AnchorPane {
+public class MainWindow extends UiPart<Stage> {
 
+    private static final String FXML = "MainWindow.fxml";
+
+    private final Logger logger = LogsCenter.getLogger(getClass());
+
+    private Stage primaryStage;
+    private Logic logic;
+
+    //4 Usages
+    private OrderPage orderPage;
+    private RecipePage recipePage;
+    private InventoryPage inventoryPage;
+    private SalePage salePage;
+
+    //////////////////////////// UI manager
     private Duke duke;
-    private Ui ui;
+    private UiManager ui;
+/////////////////////////////////////////////
 
     //Popup box
     @FXML
@@ -45,18 +69,56 @@ public class MainWindow extends AnchorPane {
     @FXML
     private JFXButton salesButton;
 
-    private OrderPage orderPage;
-    private RecipePage recipePage;
-    private InventoryPage inventoryPage;
-    private SalePage salePage;
 
+    public MainWindow(Stage primaryStage, Logic logic) {
+        super(FXML, primaryStage); //fxml is taken care of here;
 
-    public void initialize() {
-        Ui ui = new Ui(this);
-        duke = new Duke(ui);
+        this.primaryStage = primaryStage;
+        this.logic = logic;
+
+        // Configure
         popUp.setVisible(false);
     }
 
+    /////////////////////////////////////
+    public void initialize() {
+        duke = new Duke(ui);
+        popUp.setVisible(false);
+
+        recipePage = new RecipePage(logic.getRecipeList());
+
+    }
+
+    void initializePages() {
+        recipePage = new RecipePage(logic.getRecipeList());
+        pagePane.getChildren().add(recipePage.getRoot());
+        setAnchorForSectionPage(recipePage);
+
+        orderPage = new OrderPage();
+        //setAnchorForSectionPage(orderPage);
+
+        inventoryPage = new InventoryPage();
+        //setAnchorForSectionPage(inventoryPage);
+
+        salePage = new SalePage();
+        //setAnchorForSectionPage(salePage);
+    }
+
+    void show() {
+        primaryStage.show();
+    }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+    private void setAnchorForSectionPage(UiPart<Region> sectionPage) {
+        AnchorPane.setLeftAnchor(sectionPage, 0.0);
+        AnchorPane.setRightAnchor(sectionPage, 0.0);
+        AnchorPane.setTopAnchor(sectionPage, 0.0);
+        AnchorPane.setBottomAnchor(sectionPage, 4.0);
+        ////////////////////////////
+        //setPageAnchor(sectionPage);
+    }
 
     @FXML
     private void handleUserInput() {
@@ -91,27 +153,7 @@ public class MainWindow extends AnchorPane {
         showSalePage();
     }
 
-    void initializePages() {
-        orderPage = new OrderPage();
-        setPageAnchor(orderPage);
 
-        recipePage = new RecipePage();
-        AnchorPane.setLeftAnchor(recipePage, 0.0);
-        AnchorPane.setRightAnchor(recipePage, 0.0);
-        AnchorPane.setTopAnchor(recipePage, 0.0);
-        AnchorPane.setBottomAnchor(recipePage, 4.0);
-        setPageAnchor(recipePage);
-
-        inventoryPage = new InventoryPage();
-        setPageAnchor(inventoryPage);
-
-        salePage = new SalePage();
-        AnchorPane.setLeftAnchor(salePage, 0.0);
-        AnchorPane.setRightAnchor(salePage, 0.0);
-        AnchorPane.setTopAnchor(salePage, 0.0);
-        AnchorPane.setBottomAnchor(salePage, 4.0);
-        setPageAnchor(salePage);
-    }
 
     void showMessage(String message) {
         popUpLabel.setText(message);

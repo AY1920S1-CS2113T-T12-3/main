@@ -1,5 +1,6 @@
-package duke.ui;
+package duke.ui.sale;
 
+import duke.ui.MainWindow;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 

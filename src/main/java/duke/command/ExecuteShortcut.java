@@ -5,7 +5,7 @@ import duke.commons.DukeException;
 import duke.parser.decrypted.OldParser;
 import duke.storage.BakingList;
 import duke.storage.Storage;
-import duke.ui.Ui;
+import duke.ui.UiManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,7 +42,7 @@ public class ExecuteShortcut extends Command implements Undoable {
     }
 
     @Override
-    public void undo(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
+    public void undo(BakingList bakingList, Storage storage, UiManager ui) throws DukeException {
         ListIterator<Command> itr = commands.listIterator(commands.size());
         while (itr.hasPrevious()) {
             Command command = itr.previous();
@@ -54,13 +54,13 @@ public class ExecuteShortcut extends Command implements Undoable {
     }
 
     @Override
-    public void redo(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
+    public void redo(BakingList bakingList, Storage storage, UiManager ui) throws DukeException {
         execute(bakingList, storage, ui);
         ui.showMessage("Redo: Execute shortcut");
     }
 
     @Override
-    public void execute(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
+    public void execute(BakingList bakingList, Storage storage, UiManager ui) throws DukeException {
         for (Command command : commands) {
             command.execute(bakingList, storage, ui);
         }

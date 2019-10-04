@@ -6,7 +6,7 @@ import duke.commons.Message;
 import duke.entities.Order;
 import duke.storage.BakingList;
 import duke.storage.Storage;
-import duke.ui.Ui;
+import duke.ui.UiManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +37,7 @@ public class DeleteOrderCommand extends OrderCommand implements Undoable {
     }
 
     @Override
-    public void undo(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
+    public void undo(BakingList bakingList, Storage storage, UiManager ui) throws DukeException {
         for (int i = 0; i < toDeleteIndexes.size(); i++) {
             bakingList.getOrderList().add(toDeleteIndexes.get(i), toDelete.get(i));
         }
@@ -47,13 +47,13 @@ public class DeleteOrderCommand extends OrderCommand implements Undoable {
     }
 
     @Override
-    public void redo(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
+    public void redo(BakingList bakingList, Storage storage, UiManager ui) throws DukeException {
         execute(bakingList, storage, ui);
         ui.showMessage("Redo: Remove order");
     }
 
     @Override
-    public void execute(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
+    public void execute(BakingList bakingList, Storage storage, UiManager ui) throws DukeException {
         for (int i : toDeleteIndexes) {
             if (i >= bakingList.getOrderList().size() || i < 0) {
                 throw new DukeException(Message.MESSAGE_INVALID_RANGE);

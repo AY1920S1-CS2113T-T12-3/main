@@ -7,7 +7,7 @@ import duke.command.Undoable;
 import duke.commons.DukeException;
 import duke.storage.BakingList;
 import duke.storage.Storage;
-import duke.ui.Ui;
+import duke.ui.UiManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +20,9 @@ public class CommandManager {
     private List<Undoable> redoStack = new ArrayList<>();
     private BakingList bakingList;
     private Storage storage;
-    private Ui ui;
+    private UiManager ui;
 
-    public CommandManager(BakingList bakingList, Storage storage, Ui ui) {
+    public CommandManager(BakingList bakingList, Storage storage, UiManager ui) {
         this.bakingList = bakingList;
         this.storage = storage;
         this.ui = ui;

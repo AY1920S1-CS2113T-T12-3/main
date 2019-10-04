@@ -4,7 +4,7 @@ import duke.commons.DukeException;
 import duke.entities.recipe.Recipe;
 import duke.storage.BakingList;
 import duke.storage.Storage;
-import duke.ui.Ui;
+import duke.ui.UiManager;
 
 import java.util.List;
 import java.util.Map;
@@ -28,7 +28,7 @@ public class AddRecipeCommand extends RecipeCommand {
      */
 
     @Override
-    public void execute(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
+    public void execute(BakingList bakingList, Storage storage, UiManager ui) throws DukeException {
         recipe = getRecipe();
         addRecipe(recipe, bakingList);
         storage.serialize(bakingList);

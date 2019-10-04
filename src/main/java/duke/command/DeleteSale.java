@@ -5,7 +5,7 @@ import duke.entities.Sale;
 import duke.parser.decrypted.CommandParser;
 import duke.storage.BakingList;
 import duke.storage.Storage;
-import duke.ui.Ui;
+import duke.ui.UiManager;
 
 import java.util.List;
 import java.util.Map;
@@ -21,7 +21,7 @@ public class DeleteSale implements Undoable {
         checkParameters();
     }
 
-    public void execute(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
+    public void execute(BakingList bakingList, Storage storage, UiManager ui) throws DukeException {
         this.sale = CommandParser.getSaleByIndexOrId(bakingList.getSaleList(), params);
         this.index = CommandParser.getSaleIndex(bakingList.getSaleList(), params);
         bakingList.getSaleList().remove(sale);
@@ -30,14 +30,14 @@ public class DeleteSale implements Undoable {
     }
 
     @Override
-    public void undo(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
+    public void undo(BakingList bakingList, Storage storage, UiManager ui) throws DukeException {
         bakingList.getSaleList().add(index, sale);
         storage.serialize(bakingList);
         ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());
     }
 
     @Override
-    public void redo(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
+    public void redo(BakingList bakingList, Storage storage, UiManager ui) throws DukeException {
         execute(bakingList, storage, ui);
     }
 

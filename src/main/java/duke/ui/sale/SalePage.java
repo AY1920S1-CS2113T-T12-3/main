@@ -1,9 +1,12 @@
-package duke.ui;
+package duke.ui.sale;
 
 import duke.entities.Sale;
+import duke.ui.MainWindow;
+import duke.ui.UiPart;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -14,6 +17,7 @@ public class SalePage extends AnchorPane {
     private VBox saleList;
 
     public SalePage() {
+        super();
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/SalePage.fxml"));
             fxmlLoader.setController(this);

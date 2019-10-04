@@ -1,7 +1,8 @@
-package duke.ui;
+package duke.ui.order;
 
 import duke.entities.Order;
 import duke.parser.TimeParser;
+import duke.ui.MainWindow;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;

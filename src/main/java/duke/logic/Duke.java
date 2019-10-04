@@ -6,16 +6,16 @@ import duke.parser.BakingHomeParser;
 import duke.parser.exceptions.ParseException;
 import duke.storage.BakingList;
 import duke.storage.Storage;
-import duke.ui.Ui;
+import duke.ui.UiManager;
 
 public class Duke {
 
     private static final Storage STORAGE = new Storage("baking.json");
     private static BakingList bakingList = new BakingList();
-    private Ui ui;
+    private UiManager ui;
     private CommandManager commandManager;
 
-    public Duke(Ui ui) {
+    public Duke(UiManager ui) {
         this.ui = ui;
         try {
             bakingList = STORAGE.deserialize();

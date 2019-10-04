@@ -5,7 +5,7 @@ import duke.entities.Order;
 import duke.parser.decrypted.CommandParser;
 import duke.storage.BakingList;
 import duke.storage.Storage;
-import duke.ui.Ui;
+import duke.ui.UiManager;
 
 import java.util.List;
 import java.util.Map;
@@ -27,17 +27,17 @@ public class CompleteOrder extends Command implements Undoable {
     }
 
     @Override
-    public void undo(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
+    public void undo(BakingList bakingList, Storage storage, UiManager ui) throws DukeException {
 
     }
 
     @Override
-    public void redo(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
+    public void redo(BakingList bakingList, Storage storage, UiManager ui) throws DukeException {
 
     }
 
     @Override
-    public void execute(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
+    public void execute(BakingList bakingList, Storage storage, UiManager ui) throws DukeException {
         orders = CommandParser.getOrders(bakingList.getOrderList(), params);
         for (Order order : orders) {
             order.setStatus(Order.Status.COMPLETED);

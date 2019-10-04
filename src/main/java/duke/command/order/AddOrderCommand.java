@@ -5,7 +5,7 @@ import duke.commons.DukeException;
 import duke.entities.Order;
 import duke.storage.BakingList;
 import duke.storage.Storage;
-import duke.ui.Ui;
+import duke.ui.UiManager;
 
 /**
  * A command to add an <code>Order</code> object to an <code>OrderList</code> object.
@@ -19,7 +19,7 @@ public class AddOrderCommand extends OrderCommand implements Undoable {
         this.toAdd = toAdd;
     }
 
-    public void execute(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
+    public void execute(BakingList bakingList, Storage storage, UiManager ui) throws DukeException {
         addOrder(toAdd, bakingList);
         storage.serialize(bakingList);
         ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());
@@ -27,7 +27,7 @@ public class AddOrderCommand extends OrderCommand implements Undoable {
     }
 
     @Override
-    public void undo(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
+    public void undo(BakingList bakingList, Storage storage, UiManager ui) throws DukeException {
         bakingList.getOrderList().remove(toAdd);
         storage.serialize(bakingList);
         ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());
@@ -35,7 +35,7 @@ public class AddOrderCommand extends OrderCommand implements Undoable {
     }
 
     @Override
-    public void redo(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
+    public void redo(BakingList bakingList, Storage storage, UiManager ui) throws DukeException {
         execute(bakingList, storage, ui);
         ui.showMessage("Redo: Add order");
     }

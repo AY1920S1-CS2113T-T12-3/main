@@ -6,7 +6,7 @@ import duke.entities.Order;
 import duke.parser.decrypted.CommandParser;
 import duke.storage.BakingList;
 import duke.storage.Storage;
-import duke.ui.Ui;
+import duke.ui.UiManager;
 
 import java.util.List;
 import java.util.Map;
@@ -38,14 +38,14 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
     }
 
     @Override
-    public void undo(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
+    public void undo(BakingList bakingList, Storage storage, UiManager ui) throws DukeException {
         copyOrder(order, unmodifiedOrder);
         storage.serialize(bakingList);
         ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());
     }
 
     @Override
-    public void redo(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
+    public void redo(BakingList bakingList, Storage storage, UiManager ui) throws DukeException {
         order = getOrder(bakingList);
         CommandParser.modifyOrdrer(params, order);
         storage.serialize(bakingList);
@@ -53,7 +53,7 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
     }
 
     @Override
-    public void execute(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
+    public void execute(BakingList bakingList, Storage storage, UiManager ui) throws DukeException {
         order = getOrder(bakingList);
         copyOrder(unmodifiedOrder, order);
         CommandParser.modifyOrdrer(params, order);

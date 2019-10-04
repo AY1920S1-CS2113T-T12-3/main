@@ -3,7 +3,7 @@ package duke.command;
 import duke.commons.DukeException;
 import duke.storage.BakingList;
 import duke.storage.Storage;
-import duke.ui.Ui;
+import duke.ui.UiManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,7 +39,7 @@ public class SetShortcut extends Command implements Undoable {
     }
 
     @Override
-    public void undo(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
+    public void undo(BakingList bakingList, Storage storage, UiManager ui) throws DukeException {
         if (unmodifiedExecuteShortCutCommand == null) {
             System.out.println("here");
             bakingList.getShortcuts().remove(name);
@@ -51,13 +51,13 @@ public class SetShortcut extends Command implements Undoable {
     }
 
     @Override
-    public void redo(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
+    public void redo(BakingList bakingList, Storage storage, UiManager ui) throws DukeException {
         execute(bakingList, storage, ui);
         ui.showMessage("Redo: Set shortcut");
     }
 
     @Override
-    public void execute(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
+    public void execute(BakingList bakingList, Storage storage, UiManager ui) throws DukeException {
         ExecuteShortcut executeShortcutCommand = new ExecuteShortcut(lines);
         if (bakingList.getShortcuts().containsKey(name)) {
             unmodifiedExecuteShortCutCommand = bakingList.getShortcuts().get(name);

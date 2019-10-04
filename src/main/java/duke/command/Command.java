@@ -3,7 +3,7 @@ package duke.command;
 import duke.commons.DukeException;
 import duke.storage.BakingList;
 import duke.storage.Storage;
-import duke.ui.Ui;
+import duke.ui.UiManager;
 
 /**
  * A command that is executable by the user.
@@ -18,5 +18,5 @@ public abstract class Command {
      * @param ui         A UI controller object.
      * @throws DukeException If the execution fails.
      */
-    public abstract void execute(BakingList bakingList, Storage storage, Ui ui) throws DukeException;
+    public abstract void execute(BakingList bakingList, Storage storage, UiManager ui) throws DukeException;
 }

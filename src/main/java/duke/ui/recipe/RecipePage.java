@@ -1,8 +1,11 @@
-package duke.ui;
+package duke.ui.recipe;
 
+import duke.commons.LogsCenter;
 import duke.entities.Ingredient;
 import duke.entities.recipe.Recipe;
 import duke.entities.recipe.Step;
+import duke.ui.MainWindow;
+import duke.ui.UiPart;
 import duke.ui.recipe.IngredientBox;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -14,6 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -24,9 +28,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
-public class RecipePage extends AnchorPane {
-
+public class RecipePage extends UiPart<Region> {
+    private static final String FXML = "RecipePage.fxml";
+    private final Logger logger = LogsCenter.getLogger(RecipePage.class);
 
     @FXML
     private AnchorPane recipeShowPane;
@@ -41,37 +47,21 @@ public class RecipePage extends AnchorPane {
     @FXML
     private ListView<String> steps;
     @FXML
-    private VBox recipeList;
-    @FXML
     private Label timeLabel;
     @FXML
     private TableView<Recipe> recipeTable;
 
-    private Recipe rcp;
-
-    public RecipePage() {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/RecipePage.fxml"));
-            fxmlLoader.setController(this);
-            fxmlLoader.setRoot(this);
-            fxmlLoader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Recipe recipe = new Recipe("");
-        recipe.init();
-        List<Recipe> rpl = new ArrayList<>();
-        rpl.add(recipe);
-        refreshRecipeListPage(rpl);
 
 
+    public RecipePage(ObservableList<Recipe> recipeList) {
+        super(FXML);
+        showRecipeListPage(recipeList);
     }
 
 
-    public String getName() {
-        return rcp.getName();
-    }
+   //// public String getName() {
+   //     return rcp.getName();
+   // }
 
     public void showRecipeShowPane() {
         Recipe recipe = new Recipe("");
@@ -137,16 +127,16 @@ public class RecipePage extends AnchorPane {
 
 
     //RecipeList
-    void refreshRecipeListPage(List<Recipe> rpl) {
+    public void showRecipeListPage(ObservableList<Recipe> recipeList) {
         recipeListPane.setVisible(true);
         recipeShowPane.setVisible(false);
-        ObservableList<Recipe> recipeObservableList = FXCollections.observableArrayList();
-        for (Recipe recipe : rpl) {
-            recipeObservableList.add(recipe);
-        }
+        //ObservableList<Recipe> recipeObservableList = FXCollections.observableArrayList();
+        //for (Recipe recipe : recipeList) {
+        //    recipeObservableList.add(recipe);
+        //}
 
         recipeTable.getColumns().clear();
-        if (rpl.size() != 0) {
+        if (recipeList.size() != 0) {
 
             TableColumn<Recipe, Void> indexColumn = new TableColumn<>("S/N");
             indexColumn.setMinWidth(50);
@@ -199,10 +189,9 @@ public class RecipePage extends AnchorPane {
             difficultyLevelColumn.setResizable(true);
             difficultyLevelColumn.setCellValueFactory(new PropertyValueFactory<>("difficultyLevel"));
 
-            recipeTable.setItems(recipeObservableList);
+            recipeTable.setItems(recipeList);
             recipeTable.getColumns().addAll(indexColumn, nameColumn, timeColumn, costColumn,
                     difficultyLevelColumn);
-
         }
     }
 
