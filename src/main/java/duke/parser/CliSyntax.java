@@ -15,5 +15,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_ORDER_INDEX = new Prefix("-i");
 
     public static final Prefix PREFIX_RECIPE_NAME = new Prefix("-name");
+    public static final Prefix PREFIX_RECIPE_INGREDIENT = new Prefix(("-ingt"));
+    public static final Prefix PREFIX_RECIPE_STEP = new Prefix("-step");
+    public static final Prefix PREFIX_recipe_level = new Prefix("-level");
 
 }

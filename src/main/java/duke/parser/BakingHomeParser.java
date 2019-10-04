@@ -4,6 +4,7 @@ import duke.command.Command;
 import duke.command.RedoCommand;
 import duke.command.UndoCommand;
 import duke.command.order.OrderCommand;
+import duke.command.recipe.RecipeCommand;
 import duke.commons.Message;
 import duke.parser.exceptions.ParseException;
 import duke.parser.order.OrderCommandParser;
@@ -32,16 +33,18 @@ public class BakingHomeParser {
         String primaryCommand = matcher.group(1);
         String subCommandAndArgs = matcher.group(2);
         switch (primaryCommand) {
-            case OrderCommand.COMMAND_WORD:
-                return new OrderCommandParser().parse(subCommandAndArgs);
-            case UndoCommand.COMMAND_WORD:
-                System.out.println("1");
-                return new UndoCommand();
-            case RedoCommand.COMMAND_WORD:
-                return new RedoCommand();
-            default:
-                System.out.println(primaryCommand);
-                throw new ParseException(Message.MESSAGE_UNKNOWN_COMMAND);
+        case OrderCommand.COMMAND_WORD:
+            return new OrderCommandParser().parse(subCommandAndArgs);
+        case RecipeCommand.COMMAND_WORD:
+            //return new RecipeCommandParser.parse(subCommandAndArgs);
+        case UndoCommand.COMMAND_WORD:
+            System.out.println("1");
+            return new UndoCommand();
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
+        default:
+            System.out.println(primaryCommand);
+            throw new ParseException(Message.MESSAGE_UNKNOWN_COMMAND);
         }
     }
 }
