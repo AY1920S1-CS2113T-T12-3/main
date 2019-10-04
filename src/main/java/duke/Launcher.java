@@ -11,6 +11,9 @@ import duke.ui.MainWindow;
 import java.io.IOException;
 
 public class Launcher extends Application {
+
+    // 4 main component,
+    //not launching main window here
     public static void main(String[] args) {
         launch(Launcher.class, args);
     }

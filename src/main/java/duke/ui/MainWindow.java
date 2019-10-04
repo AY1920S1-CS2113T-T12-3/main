@@ -1,7 +1,10 @@
 package duke.ui;
 
 import com.jfoenix.controls.JFXButton;
+import duke.command.Command;
+import duke.commons.DukeException;
 import duke.commons.LogsCenter;
+import duke.commons.core.GuiSettings;
 import duke.entities.Order;
 import duke.entities.Sale;
 import duke.entities.recipe.Recipe;
@@ -38,10 +41,6 @@ public class MainWindow extends UiPart<Stage> {
     private InventoryPage inventoryPage;
     private SalePage salePage;
 
-    //////////////////////////// UI manager
-    private Duke duke;
-    private UiManager ui;
-/////////////////////////////////////////////
 
     //Popup box
     @FXML
@@ -76,38 +75,31 @@ public class MainWindow extends UiPart<Stage> {
         this.primaryStage = primaryStage;
         this.logic = logic;
 
-        // Configure
         popUp.setVisible(false);
+        // Configure GUI
+        setWindowDefaultSize(logic.getGuiSetting);
     }
 
-    /////////////////////////////////////
-    public void initialize() {
-        duke = new Duke(ui);
-        popUp.setVisible(false);
 
-        recipePage = new RecipePage(logic.getRecipeList());
+    void initialPage() {
 
-    }
 
-    void initializePages() {
         recipePage = new RecipePage(logic.getRecipeList());
         pagePane.getChildren().add(recipePage.getRoot());
-        setAnchorForSectionPage(recipePage);
-
-        orderPage = new OrderPage();
-        //setAnchorForSectionPage(orderPage);
-
-        inventoryPage = new InventoryPage();
-        //setAnchorForSectionPage(inventoryPage);
-
-        salePage = new SalePage();
-        //setAnchorForSectionPage(salePage);
     }
 
     void show() {
         primaryStage.show();
     }
 
+    private void setWindowDefaultSize(GuiSettings guiSettings) {
+        primaryStage.setHeight(guiSettings.getWindowHeight());
+        primaryStage.setWidth(guiSettings.getWindowWidth());
+        if (guiSettings.getWindowCoordinates() != null) {
+            primaryStage.setX(guiSettings.getWindowCoordinates().getX());
+            primaryStage.setY(guiSettings.getWindowCoordinates().getY());
+        }
+    }
     public Stage getPrimaryStage() {
         return primaryStage;
     }
@@ -116,16 +108,31 @@ public class MainWindow extends UiPart<Stage> {
         AnchorPane.setRightAnchor(sectionPage, 0.0);
         AnchorPane.setTopAnchor(sectionPage, 0.0);
         AnchorPane.setBottomAnchor(sectionPage, 4.0);
-        ////////////////////////////
-        //setPageAnchor(sectionPage);
     }
 
-    @FXML
+    public RecipePage getRecipePage() {
+        return recipePage;
+    }
+    @FXML //executeCommand
     private void handleUserInput() {
         popUp.setVisible(false);
         String input = userInput.getText();
-        duke.executeInput(input);
         userInput.clear();
+
+        try {
+            Command command = logic.execute(input);
+            logger.info("Result: " + command.getFeedbackToUser());
+            handleOk();
+            //if logic throws duke exception
+        } catch (DukeException e) {
+            logger.info("Invalid command!");
+            handleError();
+            throw e;
+        }
+    }
+
+    @FXML void handleError() {
+
     }
 
     @FXML

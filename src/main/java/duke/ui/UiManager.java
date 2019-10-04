@@ -1,16 +1,11 @@
 package duke.ui;
 
 import duke.Launcher;
-import duke.Main;
 import duke.commons.LogsCenter;
-import duke.entities.Order;
-import duke.entities.Sale;
-import duke.entities.recipe.Recipe;
 import duke.logic.Logic;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -45,7 +40,7 @@ public class UiManager implements Ui {
         try {
             mainWindow = new MainWindow(primaryStage, logic);
             mainWindow.show();
-            mainWindow.initializePages();
+            mainWindow.initialPage(); //what's the initial page you want to show
         } catch (Throwable e) {
       //      logger.severe(StringUtil.getDetails(e));
             disableInput();
