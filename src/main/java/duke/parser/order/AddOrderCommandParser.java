@@ -2,7 +2,7 @@ package duke.parser.order;
 
 import duke.command.order.AddOrderCommand;
 import duke.commons.Message;
-import duke.entities.Order;
+import duke.model.Order;
 import duke.parser.*;
 import duke.parser.exceptions.ParseException;
 

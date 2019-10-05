@@ -5,10 +5,9 @@ import duke.command.Command;
 import duke.commons.DukeException;
 import duke.commons.LogsCenter;
 import duke.commons.core.GuiSettings;
-import duke.entities.Order;
-import duke.entities.Sale;
-import duke.entities.recipe.Recipe;
-import duke.logic.Duke;
+import duke.model.Order;
+import duke.model.Sale;
+import duke.model.recipe.Recipe;
 import duke.logic.Logic;
 import duke.ui.inventory.InventoryPage;
 import duke.ui.order.OrderPage;
@@ -35,7 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Logic logic;
 
-    //4 Usages
+    //4 Sections
     private OrderPage orderPage;
     private RecipePage recipePage;
     private InventoryPage inventoryPage;
@@ -76,15 +75,13 @@ public class MainWindow extends UiPart<Stage> {
         this.logic = logic;
 
         popUp.setVisible(false);
-        // Configure GUI
-        setWindowDefaultSize(logic.getGuiSetting);
+        // Configure Main Page
+        setWindowDefaultSize(logic.getGuiSettings());
     }
 
 
-    void initialPage() {
-
-
-        recipePage = new RecipePage(logic.getRecipeList());
+    void showDefaultSectionPage() {
+        orderPage = new OrderPage(logic.getOrderList());
         pagePane.getChildren().add(recipePage.getRoot());
     }
 
@@ -100,31 +97,67 @@ public class MainWindow extends UiPart<Stage> {
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
     }
-    public Stage getPrimaryStage() {
-        return primaryStage;
-    }
-    private void setAnchorForSectionPage(UiPart<Region> sectionPage) {
-        AnchorPane.setLeftAnchor(sectionPage, 0.0);
-        AnchorPane.setRightAnchor(sectionPage, 0.0);
-        AnchorPane.setTopAnchor(sectionPage, 0.0);
-        AnchorPane.setBottomAnchor(sectionPage, 4.0);
+
+    /**
+     * Adjusts the MainPage elements when showing different section
+     * @param section
+     */
+    private void showMainElements(UiPart<Region> section) {
+        pagePane.getChildren().clear();
+        pagePane.getChildren().add(section);
+
+        recipeButton.setButtonType(JFXButton.ButtonType.FLAT);
+        orderButton.setButtonType(JFXButton.ButtonType.FLAT);
+        inventoryButton.setButtonType(JFXButton.ButtonType.FLAT);
+        salesButton.setButtonType(JFXButton.ButtonType.FLAT);
+        if (section instanceof RecipePage) {
+            recipeButton.setButtonType(JFXButton.ButtonType.RAISED);
+            currentPage.setText("Recipe");
+        } else {
+            //
+        }
     }
 
+    private void setPageAnchor(UiPart<Region> section) {
+        AnchorPane.setLeftAnchor(section, 0.0);
+        AnchorPane.setRightAnchor(section, 0.0);
+        AnchorPane.setTopAnchor(section, 0.0);
+        AnchorPane.setBottomAnchor(section, 4.0);
+    }
+
+    /**
+     * Configure MainWindow when different section pages are shown
+     * @param section ROIS page shown
+     */
+    public void configMainWindow(UiPart<Region> section) {
+        showMainElements(section);
+        setPageAnchor(section);
+    }
+
+    // Maybe for error handling
     public RecipePage getRecipePage() {
         return recipePage;
     }
-    @FXML //executeCommand
+
+
+    @FXML
     private void handleUserInput() {
         popUp.setVisible(false);
         String input = userInput.getText();
+        executeCommand(input);
         userInput.clear();
+    }
 
+    //equivalent to executeCommand() method in AB3
+    //is the Part where UI controls Logic
+    //In AB3 CommandBox is a UiPart<Region>, but in our case the place to input is only a textInput,
+    //Will revisit when Command component is done
+    private void executeCommand(String input) {
         try {
             Command command = logic.execute(input);
             logger.info("Result: " + command.getFeedbackToUser());
             handleOk();
-            //if logic throws duke exception
-        } catch (DukeException e) {
+        } catch (Exception e) {
             logger.info("Invalid command!");
             handleError();
             throw e;
@@ -182,76 +215,27 @@ public class MainWindow extends UiPart<Stage> {
         popUp.setVisible(true);
     }
 
-    void refreshOrderList(List<Order> orders, List<Order> all) {
-        this.orderPage.refreshOrderList(orders, all);
-    }
 
-    void refreshRecipeListPage(List<Recipe> recipes) {
-        this.recipePage.refreshRecipeListPage(recipes);
-    }
-
-
+    //Might need to implement Command to change page section
+    //i.e. user enters "order", UI shows recipe page
+    // for this part Ui might need to control Logic
     void showOrderPage() {
-        pagePane.getChildren().clear();
-        pagePane.getChildren().add(orderPage);
-
-        recipeButton.setButtonType(JFXButton.ButtonType.FLAT);
-        orderButton.setButtonType(JFXButton.ButtonType.RAISED);
-        inventoryButton.setButtonType(JFXButton.ButtonType.FLAT);
-        salesButton.setButtonType(JFXButton.ButtonType.FLAT);
-
-        currentPage.setText("Orders");
-    }
-
-    void refreshSaleList(List<Sale> sales, List<Sale> all) {
-        this.salePage.refreshSaleList(sales, all);
+        //configMainWindow(orderPage);
     }
 
     void showRecipePage() {
-        pagePane.getChildren().clear();
-        pagePane.getChildren().add(recipePage);
-
-        recipeButton.setButtonType(JFXButton.ButtonType.RAISED);
-        orderButton.setButtonType(JFXButton.ButtonType.FLAT);
-        inventoryButton.setButtonType(JFXButton.ButtonType.FLAT);
-        salesButton.setButtonType(JFXButton.ButtonType.FLAT);
-
-        currentPage.setText("Recipes");
+        configMainWindow(recipePage);
     }
 
-
     void showInventoryPage() {
-        pagePane.getChildren().clear();
-        pagePane.getChildren().add(inventoryPage);
-
-        recipeButton.setButtonType(JFXButton.ButtonType.FLAT);
-        orderButton.setButtonType(JFXButton.ButtonType.FLAT);
-        inventoryButton.setButtonType(JFXButton.ButtonType.RAISED);
-        salesButton.setButtonType(JFXButton.ButtonType.FLAT);
-
-        currentPage.setText("Inventory");
+        //configMainWindow(InventoryPage);
     }
 
     void showSalePage() {
-        pagePane.getChildren().clear();
-        pagePane.getChildren().add(salePage);
-
-        recipeButton.setButtonType(JFXButton.ButtonType.FLAT);
-        orderButton.setButtonType(JFXButton.ButtonType.FLAT);
-        inventoryButton.setButtonType(JFXButton.ButtonType.FLAT);
-        salesButton.setButtonType(JFXButton.ButtonType.RAISED);
-
-        currentPage.setText("Sales");
+        //configMainWindow(SalePage);
     }
 
     void disableInput() {
         userInput.setDisable(true);
-    }
-
-    private void setPageAnchor(AnchorPane page) {
-        AnchorPane.setLeftAnchor(page, 0.0);
-        AnchorPane.setRightAnchor(page, 0.0);
-        AnchorPane.setTopAnchor(page, 0.0);
-        AnchorPane.setBottomAnchor(page, 4.0);
     }
 }

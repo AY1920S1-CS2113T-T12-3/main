@@ -1,13 +1,11 @@
 package duke.ui.order;
 
-import duke.entities.Order;
+import duke.model.Order;
 import duke.ui.MainWindow;
-import duke.ui.UiPart;
-import duke.ui.order.OrderCard;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -17,7 +15,7 @@ public class OrderPage extends AnchorPane {
     @FXML
     private VBox orderList;
 
-    public OrderPage() {
+    public OrderPage(ObservableList<Order> orderList) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/OrderPage.fxml"));
             fxmlLoader.setController(this);

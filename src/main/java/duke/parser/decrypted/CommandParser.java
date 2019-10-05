@@ -3,8 +3,8 @@ package duke.parser.decrypted;
 import duke.command.Command;
 import duke.command.recipe.AddRecipeCommand;
 import duke.commons.DukeException;
-import duke.entities.Order;
-import duke.entities.Sale;
+import duke.model.Order;
+import duke.model.Sale;
 import duke.parser.TimeParser;
 
 import java.util.ArrayList;

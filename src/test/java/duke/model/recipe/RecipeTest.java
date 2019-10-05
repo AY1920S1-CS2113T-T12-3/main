@@ -1,6 +1,5 @@
-package duke.entities.recipe;
+package duke.model.recipe;
 
-import duke.commons.DukeException;
 import org.testng.annotations.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

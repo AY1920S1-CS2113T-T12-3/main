@@ -1,9 +1,9 @@
 package duke.storage;
 
 import duke.command.ExecuteShortcut;
-import duke.entities.Order;
-import duke.entities.Sale;
-import duke.entities.recipe.Recipe;
+import duke.model.Order;
+import duke.model.Sale;
+import duke.model.recipe.Recipe;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -3,7 +3,7 @@ package duke.command.order;
 import duke.command.Undoable;
 import duke.commons.DukeException;
 import duke.commons.Message;
-import duke.entities.Order;
+import duke.model.Order;
 import duke.storage.BakingList;
 import duke.storage.Storage;
 import duke.ui.UiManager;

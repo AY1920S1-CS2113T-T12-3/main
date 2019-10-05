@@ -1,6 +1,6 @@
-package duke.entities.inventory;
+package duke.model.inventory;
 
-import duke.entities.Ingredient;
+import duke.model.Ingredient;
 
 
 import java.util.LinkedHashMap;

@@ -40,7 +40,7 @@ public class UiManager implements Ui {
         try {
             mainWindow = new MainWindow(primaryStage, logic);
             mainWindow.show();
-            mainWindow.initialPage(); //what's the initial page you want to show
+            mainWindow.showDefaultSectionPage(); //what's the initial page you want to show
         } catch (Throwable e) {
       //      logger.severe(StringUtil.getDetails(e));
             disableInput();

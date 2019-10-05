@@ -2,7 +2,7 @@ package duke.command.order;
 
 import duke.command.Undoable;
 import duke.commons.DukeException;
-import duke.entities.Order;
+import duke.model.Order;
 import duke.parser.decrypted.CommandParser;
 import duke.storage.BakingList;
 import duke.storage.Storage;

@@ -1,4 +1,4 @@
-package duke.entities;
+package duke.model;
 
 import duke.parser.TimeParser;
 

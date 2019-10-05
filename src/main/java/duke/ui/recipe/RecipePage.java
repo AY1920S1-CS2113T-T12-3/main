@@ -1,33 +1,26 @@
 package duke.ui.recipe;
 
 import duke.commons.LogsCenter;
-import duke.entities.Ingredient;
-import duke.entities.recipe.Recipe;
-import duke.entities.recipe.Step;
-import duke.ui.MainWindow;
+import duke.model.Ingredient;
+import duke.model.recipe.Recipe;
+import duke.model.recipe.Step;
 import duke.ui.UiPart;
 import duke.ui.recipe.IngredientBox;
 import javafx.beans.binding.Bindings;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Logger;
 
 public class RecipePage extends UiPart<Region> {

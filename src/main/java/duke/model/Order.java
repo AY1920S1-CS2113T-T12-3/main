@@ -1,6 +1,7 @@
-package duke.entities;
+package duke.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import javafx.collections.ObservableList;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -26,6 +27,7 @@ public class Order {
     public Order() {
 
     }
+
 
     public Order(@JsonProperty("customerName") String customerName,
                  @JsonProperty("customerContact") String customerContact,

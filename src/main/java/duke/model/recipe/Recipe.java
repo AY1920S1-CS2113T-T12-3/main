@@ -1,27 +1,44 @@
-package duke.entities.recipe;
+package duke.model.recipe;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import duke.entities.Ingredient;
+import duke.model.Ingredient;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Recipe {
+    public static enum State {
+        ACTIVE,
+        ARCHIVED
+    }
 
 
     private String name;
     private List<Ingredient> ingredients = new ArrayList<>();
     private List<Step> steps = new ArrayList<>();
-    private double cost;
     private int difficultyLevel;
     private int time;
+    private State state;
 
     public Recipe(@JsonProperty("name") String name) {
         this.name = name;
+        this.ingredients = new ArrayList<>();
+        this.steps = new ArrayList<>();
+        this.difficultyLevel = 0;
     }
 
     public Recipe() {
 
+    }
+
+    public Recipe(@JsonProperty("name") String name,
+                  @JsonProperty("ingredients") List<Ingredient> ingredients,
+                  @ JsonProperty("steps") List<Step> steps,
+                  @JsonProperty("difficultyLevel") int difficultyLevel) {
+        this.name = name;
+        this.ingredients = ingredients;
+        this.steps = steps;
+        this.difficultyLevel = difficultyLevel;
     }
 
     public Recipe init() {
@@ -33,7 +50,6 @@ public class Recipe {
         this.steps = stepList;
         ingredients.add(new Ingredient("cream"));
         ingredients.add(new Ingredient("cheese"));
-        cost = 20.22;
         difficultyLevel = 5;
         time = 40;
         return this;

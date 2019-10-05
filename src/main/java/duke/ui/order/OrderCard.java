@@ -1,6 +1,6 @@
 package duke.ui.order;
 
-import duke.entities.Order;
+import duke.model.Order;
 import duke.parser.TimeParser;
 import duke.ui.MainWindow;
 import javafx.fxml.FXML;

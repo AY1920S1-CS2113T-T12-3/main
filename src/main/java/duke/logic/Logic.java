@@ -1,10 +1,10 @@
 package duke.logic;
 
 import duke.command.Command;
-import duke.entities.recipe.Recipe;
+import duke.commons.core.GuiSettings;
+import duke.model.Order;
+import duke.model.recipe.Recipe;
 import javafx.collections.ObservableList;
-
-import java.nio.file.Path;
 
 /**
  * API of the Logic component
@@ -18,21 +18,9 @@ public interface Logic {
      */
     Command execute(String commandText);
 
+    /** Returns unmodifiable version of RecipeList; */
     ObservableList<Recipe> getRecipeList();
+
+    ObservableList<Order> getOrderList();
+    GuiSettings getGuiSettings();
 }
-    //
-    //
-    ///**
-    // * Returns the user prefs' address book file path.
-    // */
-    //Path getAddressBookFilePath();
-    //
-    ///**
-    // * Returns the user prefs' GUI settings.
-    // */
-    //GuiSettings getGuiSettings();
-    //
-    ///**
-    // * Set the user prefs' GUI settings.
-    // */
-    //void setGuiSettings(GuiSettings guiSettings);

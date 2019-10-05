@@ -3,7 +3,7 @@ package duke.command.recipe;
 import duke.command.Command;
 import duke.command.Undoable;
 import duke.commons.DukeException;
-import duke.entities.recipe.Recipe;
+import duke.model.recipe.Recipe;
 import duke.storage.BakingList;
 import duke.storage.Storage;
 import duke.ui.UiManager;
