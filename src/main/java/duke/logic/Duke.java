@@ -23,13 +23,7 @@ public class Duke {
             ui.showError(e.getMessage());
             ui.disableInput();
         }
-        ui.initializePages();
-        ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());
-        ui.showOrderPage();
 
-        //////////
-        ui.showRecipePage();
-        //////////
         commandManager = new CommandManager(bakingList, STORAGE, ui);
     }
 

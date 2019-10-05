@@ -23,6 +23,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MainWindow extends UiPart<Stage> {
@@ -158,7 +159,9 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + command.getFeedbackToUser());
             handleOk();
         } catch (Exception e) {
+            //Two option
             logger.info("Invalid command!");
+            logger.log(Level.INFO, "Invalid Command", e);
             handleError();
             throw e;
         }
