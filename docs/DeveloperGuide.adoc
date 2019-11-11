@@ -253,7 +253,7 @@ This feature allows user to view products with a given certain status, i.e. show
 
 The filter mechanism in product is facilitated by
 https://docs.oracle.com/javase/8/javafx/api/javafx/collections/transformation/FilteredList.html[FilteredList]
-which wraps a ObservableList and
+which wraps an ObservableList and
 filters using the provided Predicate.
 A `FilteredList<Product> filteredProducts` is stored in the `ModelManager`.
 In `BakingHome`, there is an
@@ -273,7 +273,8 @@ In particular `PREDICATE_SHOW_ARCHIVE_PRODUCTS` is as follows
     };
 ```
 
-** The `ListProductCommand` will call this method to change the visibility of products with different status by passing in the corresponding predicate.
+** The `FilterProductCommand` will call this method to change the visibility of products with different
+status by passing in the corresponding predicate.
 
 An example usage scenario and how the filter mechanism behaves at each step is shown below.
 
@@ -320,7 +321,7 @@ Note that almost all other commands follow the same sequence, with different `Co
 ** Disadvantages: More difficult to write a Predicate.
 
 * Alternative 2: Keep two separate product lists, one for archived products and one for active products.
-** Advantages: Fast access to products of both status.
+** Advantages: Fast access to products of both statuses.
 ** Disadvantages: Implementation will become complicated.
 It also makes it very expensive when adding features like sorting all products according to name, price or cost.
 
@@ -662,33 +663,11 @@ Use case ends.
 [discrete]
 === Use case 6: Viewing Product's ingredients
 
-*Precondition:* BakingHome has at least 1 product in the product list.
-
-*MSS*
-
-1. User request to list products
-2. BakingHome lists products
-3. User request to view a specific product's ingredients
-4. BakingHome shows the ingredients of that product
-+
-Use case ends.
-
-* 3a.
-The given index(indices) is(are) invalid.
-+
-[none]
-** 3a1. BakingHome shows an error message.
-+
-Use case resumes at step 2.
-
-[discrete]
-=== Use case 7: Show a Product
-
 * **Precondition:** User has at least 1 product in the product list.
 
 * **MSS**
 
-1. User can be viewing any pages.
+1. User can be viewing any page.
 2. User enters a ShowProductCommand indicating the index of the product to be shown, e.g. `product show 1`.
 3. BakingHome parses the command.
 4. BakingHome executes the command.
