@@ -1,6 +1,80 @@
 # BakingHome - User Guide
 
-[toc]
+- [BakingHome - User Guide](#bakinghome---user-guide)
+  - [1. Introduction](#1-introduction)
+  - [2. Using the Guide](#2-using-the-guide)
+  - [3. Quick Start](#3-quick-start)
+  - [4. BakingHome Overview](#4-bakinghome-overview)
+    - [4.1 Entities](#41-entities)
+    - [4.2 Feature Highlights](#42-feature-highlights)
+  - [5. Command Format](#5-command-format)
+    - [5.1 General Format](#51-general-format)
+    - [5.2 Selecting Entries](#52-selecting-entries)
+    - [5.3 Date and Time](#53-date-and-time)
+  - [6. Basic Commands](#6-basic-commands)
+    - [6.1 Inventory](#61-inventory)
+      - [6.1.1 Inventory Overview](#611-inventory-overview)
+      - [6.1.2 Switching to inventory interface : `inv`](#612-switching-to-inventory-interface--inv)
+      - [6.1.3 Adding an ingredient : `inv add`](#613-adding-an-ingredient--inv-add)
+      - [6.1.4 Editing an ingredient : `inv edit`](#614-editing-an-ingredient--inv-edit)
+      - [6.1.5 Deleting an ingredient : `inv remove`](#615-deleting-an-ingredient--inv-remove)
+      - [6.1.6 Clearing the inventory list : `inv clear`](#616-clearing-the-inventory-list--inv-clear)
+    - [6.2 Product List](#62-product-list)
+      - [6.2.1 Product List Overview](#621-product-list-overview)
+      - [6.2.2 Switching to product list interface : `product`](#622-switching-to-product-list-interface--product)
+      - [6.2.3 Adding a new product : `product add`](#623-adding-a-new-product--product-add)
+      - [6.2.4 Editing a product: `product edit`](#624-editing-a-product-product-edit)
+      - [6.2.5 Listing products `product filter`](#625-listing-products-product-filter)
+      - [6.2.6 Showing ingredients needed for a product `product show`](#626-showing-ingredients-needed-for-a-product-product-show)
+      - [6.2.7 Deleting an product : `product remove`](#627-deleting-an-product--product-remove)
+      - [6.2.8 Searching products `product search`](#628-searching-products-product-search)
+      - [6.2.9 Sorting products `product sort`](#629-sorting-products-product-sort)
+    - [6.3 Shopping List](#63-shopping-list)
+      - [6.3.1 Shopping List Overview](#631-shopping-list-overview)
+      - [6.3.2 Switching to shopping list interface : `shop`](#632-switching-to-shopping-list-interface--shop)
+      - [6.3.3 Adding an ingredient : `shop add`](#633-adding-an-ingredient--shop-add)
+      - [6.3.4 Editing an ingredient : `shop edit`](#634-editing-an-ingredient--shop-edit)
+      - [6.3.5 Deleting an ingredient : `shop remove`](#635-deleting-an-ingredient--shop-remove)
+      - [6.3.6 Clearing the shopping list : `shop clear`](#636-clearing-the-shopping-list--shop-clear)
+      - [6.3.7 Filter the shopping list : `shop list`](#637-filter-the-shopping-list--shop-list)
+      - [6.3.8 Buying ingredients : `shop buy`](#638-buying-ingredients--shop-buy)
+    - [6.4 Order List](#64-order-list)
+      - [6.4.1 Order List Overview](#641-order-list-overview)
+      - [6.4.2 Showing order list : `order`](#642-showing-order-list--order)
+      - [6.4.3 Adding an order : `order add`](#643-adding-an-order--order-add)
+      - [6.4.4 Editing an order : `order edit`](#644-editing-an-order--order-edit)
+      - [6.4.5 Deleting an order : `order remove`](#645-deleting-an-order--order-remove)
+      - [6.4.6 Completing an order : `order done`](#646-completing-an-order--order-done)
+      - [6.4.7 Sorting orders: `order sort`](#647-sorting-orders-order-sort)
+      - [6.4.8 Checking Order Status](#648-checking-order-status)
+        - [Inventory Status](#inventory-status)
+        - [Deadline Status](#deadline-status)
+        - [Order Statistics](#order-statistics)
+    - [6.5 Sale List](#65-sale-list)
+      - [6.5.1 Sale Commands Overview](#651-sale-commands-overview)
+      - [6.5.2 Showing sale list : `sale`](#652-showing-sale-list--sale)
+      - [6.5.3 Adding a sale : `sale add`](#653-adding-a-sale--sale-add)
+      - [6.5.4 Editing a sale: `sale edit`](#654-editing-a-sale-sale-edit)
+      - [6.5.5 Removing a sale : `sale remove`](#655-removing-a-sale--sale-remove)
+      - [6.5.6 Filtering sale (between dates): `sale filter`](#656-filtering-sale-between-dates-sale-filter)
+    - [6.6 Exiting BakingHome: `exit`](#66-exiting-bakinghome-exit)
+  - [7. Advanced Features](#7-advanced-features)
+    - [7.1 Redo and Undo](#71-redo-and-undo)
+      - [7.1.1 Undo a command : `undo`](#711-undo-a-command--undo)
+      - [7.1.2 Redo a command : `redo`](#712-redo-a-command--redo)
+    - [7.2 AutoComplete](#72-autocomplete)
+      - [Invoking AutoComplete:](#invoking-autocomplete)
+    - [7.3 Shortcut](#73-shortcut)
+      - [7.3.1 Setting a shortcut: `short`](#731-setting-a-shortcut-short)
+      - [7.3.2 Executing a shortcut: `do`](#732-executing-a-shortcut-do)
+      - [7.3.3 Viewing shortcuts:](#733-viewing-shortcuts)
+    - [7.4 Hot Keys](#74-hot-keys)
+  - [8. Managing your data](#8-managing-your-data)
+  - [9. FAQ](#9-faq)
+
+<div style="page-break-after: always;"></div>
+
+# BakingHome - User Guide
 
 ## 1. Introduction
 BakingHome is a one-stop application for managers of home bakeries to manage their business efficiently. It includes features for products, orders, inventory, shopping list, and sales. BakingHome is designed for users whose workflow is primarily keyboard-based.
@@ -50,7 +124,7 @@ Here is an overview of the entities.
 - Order is a collection of products requested by a customer. For example, `five bread and two cakes ordered by Mr. Yang`.
 - Sale is a transaction. It can be either income or expenditure.
 
-### 4.2 Feature Hightlights
+### 4.2 Feature Highlights
 
 BakingHome allows you to manage your products, orders, inventory, shopping list, and sales easily. Besides adding, deleting and editing the entities, BakingHome also supports:
 
@@ -735,8 +809,4 @@ If the data file is missing or damaged, BakingHome will load the demo data.
 
 **A:** Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous BakingHome folder.
 
-
-
-
-
-
+>>>>>>> 98cb89886a3e3b3aec71af6acd00c383d23fea8f
