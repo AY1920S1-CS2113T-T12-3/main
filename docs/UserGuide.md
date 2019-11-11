@@ -808,5 +808,3 @@ If the data file is missing or damaged, BakingHome will load the demo data.
 **Q:** How do I transfer my data to another computer?
 
 **A:** Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous BakingHome folder.
-
->>>>>>> 98cb89886a3e3b3aec71af6acd00c383d23fea8f
